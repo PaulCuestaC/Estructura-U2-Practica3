@@ -26,6 +26,10 @@ public class GestionTelefonos {
         arbol.insert(c4);
         arbol.insert(new Contacto("Julina", "44857"));
         arbol.insert(new Contacto("Jhon", "35483749"));
-        
+        arbol.insert(new Contacto("Jhonn","325255"));
+        arbol.preOrder();
+        arbol.eliminarContactoR("Juan");
+        System.out.println(" ");
+        arbol.preOrder();
     }
 }

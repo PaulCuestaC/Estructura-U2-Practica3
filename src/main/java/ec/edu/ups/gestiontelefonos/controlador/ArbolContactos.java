@@ -7,6 +7,7 @@ package ec.edu.ups.gestiontelefonos.controlador;
 import ec.edu.ups.gestiontelefonos.modelo.Contacto;
 import ec.edu.ups.gestiontelefonos.modelo.Nodo;
 import java.util.Scanner;
+import java.util.Stack;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,13 +34,13 @@ public class ArbolContactos {
     private void insertRecursivo(Nodo nodo, Contacto contacto) {
         if (contacto.getNombre().compareTo(nodo.getContacto().getNombre()) < 0) {
             if (nodo.getLeft() == null) {
-                nodo.setLeft(nodo);
+                nodo.setLeft( new Nodo(contacto));
             } else {
                 insertRecursivo(nodo.getLeft(), contacto);
             }
         } else if (contacto.getNombre().compareTo(nodo.getContacto().getNombre()) > 0) {
             if (nodo.getRight() == null) {
-                nodo.setRight(nodo);
+                nodo.setRight(new Nodo(contacto));
             } else {
                 insertRecursivo(nodo.getRight(), contacto);
             }
@@ -51,11 +52,15 @@ public class ArbolContactos {
             int scanner = sc.nextInt();
             if (scanner == 1) {
                 nodo.setContacto(contacto);
+            }else{
+                
             }
         }
 
     }
 
+      
+    
     public boolean setEquilibradi() {
         return verificarBalance(raiz);
     }
@@ -86,4 +91,62 @@ public class ArbolContactos {
         return Math.max(alturaIzquierda, alturaDerecha + 1);
 
     }
+  public void eliminarContactoR(String nombre) {
+        raiz = eliminarContacto(raiz, nombre);
+    }
+  
+    public Nodo eliminarContacto(Nodo nodo, String nombre) {
+        if (nodo == null) {
+            return nodo;
+        }
+        if (nombre.compareTo(nodo.getContacto().getNombre()) < 0) {
+            nodo.setLeft(eliminarContacto(nodo.getLeft(), nombre));
+
+        } else if (nombre.compareTo(nodo.getContacto().getNombre()) > 0) {
+            nodo.setRight(eliminarContacto(nodo.getRight(), nombre));
+
+        } else {
+            if (nodo.getLeft() == null) {
+                return nodo.getRight();
+            } else if (nodo.getRight() == null) {
+                return nodo.getLeft();
+            }
+            if (nodo.getLeft() == null && nodo.getRight() == null) {
+                return nodo;
+            }
+            
+            Nodo susesor = encontrarMinimo(nodo.getRight());
+            nodo.setContacto(susesor.getContacto());
+            nodo.setRight(eliminarContacto(nodo.getRight(), susesor.getContacto().getNombre()));
+        }
+        return nodo;
+    }
+
+    private Nodo encontrarMinimo(Nodo nodo) {
+        while (nodo.getLeft() != null) {
+            nodo = nodo.getLeft();
+        }
+        return nodo;
+    }
+ public void preOrder(){
+        if(raiz == null){
+            return;
+        }
+        System.out.println("Ordenacion pre order: ");
+        Stack<Nodo> stack = new Stack<>();
+        stack.push(raiz);
+        
+        while(!stack.isEmpty()){
+            Nodo actual = stack.pop();
+            
+            System.out.print(actual.getContacto()+" - ");
+            
+            if(actual.getRight() != null)
+                stack.push(actual.getRight());
+            if(actual.getLeft() != null)
+                stack.push(actual.getLeft());
+            
+        }
+    }
+  
 }
