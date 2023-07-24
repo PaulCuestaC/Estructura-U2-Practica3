@@ -5,6 +5,7 @@ package ec.edu.ups.gestiontelefonos;
 
 import ec.edu.ups.gestiontelefonos.controlador.ArbolContactos;
 import ec.edu.ups.gestiontelefonos.modelo.Contacto;
+import ec.edu.ups.gestiontelefonos.modelo.Nodo;
 
 /**
  *
@@ -27,9 +28,16 @@ public class GestionTelefonos {
         arbol.insert(new Contacto("Julina", "44857"));
         arbol.insert(new Contacto("Jhon", "35483749"));
         arbol.insert(new Contacto("Jhonn","325255"));
-        arbol.preOrder();
+//        arbol.preOrder();
         arbol.eliminarContactoR("Juan");
         System.out.println(" ");
-        arbol.preOrder();
+//        arbol.preOrder();
+        Nodo nodo = arbol.buscarContacto("Maria");
+        
+        System.out.println(" ");
+        System.out.println("--------------");
+        Contacto busqueda = nodo.getContacto();
+        
+        System.out.println(busqueda);
     }
 }

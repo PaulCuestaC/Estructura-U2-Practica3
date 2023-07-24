@@ -34,7 +34,7 @@ public class ArbolContactos {
     private void insertRecursivo(Nodo nodo, Contacto contacto) {
         if (contacto.getNombre().compareTo(nodo.getContacto().getNombre()) < 0) {
             if (nodo.getLeft() == null) {
-                nodo.setLeft( new Nodo(contacto));
+                nodo.setLeft(new Nodo(contacto));
             } else {
                 insertRecursivo(nodo.getLeft(), contacto);
             }
@@ -52,15 +52,43 @@ public class ArbolContactos {
             int scanner = sc.nextInt();
             if (scanner == 1) {
                 nodo.setContacto(contacto);
-            }else{
-                
+            } else {
+
             }
         }
 
     }
 
-      
-    
+    public Nodo buscarContacto(String nombre) {
+        raiz = buscarContactoR(raiz, nombre);
+        return raiz;
+    }
+
+    public Nodo buscarContactoR(Nodo nodo, String nombre) {
+
+        if (nodo == null) {
+            return nodo;
+        }
+        if (nombre.compareTo(nodo.getContacto().getNombre()) < 0) {
+            System.out.println(nodo.getContacto()+"1");
+            return buscarContactoR(nodo.getLeft(), nombre);
+            
+        } else if (nombre.compareTo(nodo.getContacto().getNombre()) > 0) {
+            System.out.println(nodo.getContacto()+"3");
+           return buscarContactoR(nodo.getRight(), nombre);
+
+        } else {
+            if (nombre.compareTo(nodo.getContacto().getNombre()) == 0) {
+                System.out.println(nodo.getContacto()+"2");
+                return nodo;
+
+            }
+
+        }
+//        return nodo;
+        return null;
+    }
+
     public boolean setEquilibradi() {
         return verificarBalance(raiz);
     }
@@ -91,10 +119,11 @@ public class ArbolContactos {
         return Math.max(alturaIzquierda, alturaDerecha + 1);
 
     }
-  public void eliminarContactoR(String nombre) {
+
+    public void eliminarContactoR(String nombre) {
         raiz = eliminarContacto(raiz, nombre);
     }
-  
+
     public Nodo eliminarContacto(Nodo nodo, String nombre) {
         if (nodo == null) {
             return nodo;
@@ -114,7 +143,7 @@ public class ArbolContactos {
             if (nodo.getLeft() == null && nodo.getRight() == null) {
                 return nodo;
             }
-            
+
             Nodo susesor = encontrarMinimo(nodo.getRight());
             nodo.setContacto(susesor.getContacto());
             nodo.setRight(eliminarContacto(nodo.getRight(), susesor.getContacto().getNombre()));
@@ -128,25 +157,28 @@ public class ArbolContactos {
         }
         return nodo;
     }
- public void preOrder(){
-        if(raiz == null){
+
+    public void preOrder() {
+        if (raiz == null) {
             return;
         }
         System.out.println("Ordenacion pre order: ");
         Stack<Nodo> stack = new Stack<>();
         stack.push(raiz);
-        
-        while(!stack.isEmpty()){
+
+        while (!stack.isEmpty()) {
             Nodo actual = stack.pop();
-            
-            System.out.print(actual.getContacto()+" - ");
-            
-            if(actual.getRight() != null)
+
+            System.out.print(actual.getContacto() + " - ");
+
+            if (actual.getRight() != null) {
                 stack.push(actual.getRight());
-            if(actual.getLeft() != null)
+            }
+            if (actual.getLeft() != null) {
                 stack.push(actual.getLeft());
-            
+            }
+
         }
     }
-  
+
 }
