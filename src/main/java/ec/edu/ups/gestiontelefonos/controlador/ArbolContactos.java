@@ -6,6 +6,8 @@ package ec.edu.ups.gestiontelefonos.controlador;
 
 import ec.edu.ups.gestiontelefonos.modelo.Contacto;
 import ec.edu.ups.gestiontelefonos.modelo.Nodo;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 import javax.swing.JOptionPane;
@@ -70,16 +72,16 @@ public class ArbolContactos {
             return nodo;
         }
         if (nombre.compareTo(nodo.getContacto().getNombre()) < 0) {
-            System.out.println(nodo.getContacto()+"1");
+
             return buscarContactoR(nodo.getLeft(), nombre);
-            
+
         } else if (nombre.compareTo(nodo.getContacto().getNombre()) > 0) {
-            System.out.println(nodo.getContacto()+"3");
-           return buscarContactoR(nodo.getRight(), nombre);
+
+            return buscarContactoR(nodo.getRight(), nombre);
 
         } else {
             if (nombre.compareTo(nodo.getContacto().getNombre()) == 0) {
-                System.out.println(nodo.getContacto()+"2");
+
                 return nodo;
 
             }
@@ -109,7 +111,7 @@ public class ArbolContactos {
         }
     }
 
-    private int obtenerAltura(Nodo nodo) {
+    public int obtenerAltura(Nodo nodo) {
         if (nodo == null) {
             return 1;
         }
@@ -181,4 +183,231 @@ public class ArbolContactos {
         }
     }
 
+    public int menu() {
+        try{
+        System.out.println("Ingrese la opcion que desea: ");
+        System.out.println("1.- Agregar Contacto");
+        System.out.println("2.- Buscar Contacto");
+        System.out.println("3.- Eliminar Contacto");
+        System.out.println("4.- Agregar Correo");
+        System.out.println("5.- Agregar una red social");
+        System.out.println("6.- Imprimir el arbol segun el recorrido");
+        System.out.println("7.- Obtener el numero total de contactos");
+        System.out.println("8.- Obtener el numero de niveles del arbol");
+        System.out.println("9.- Salir");
+        System.out.println("**********************************");
+        int op1 = sc.nextInt();
+        sc.nextLine();
+        return op1;
+        }catch(Exception ex){
+        System.out.println(ex);
+    }
+        return 0;
+    }
+
+    public int subMenu() {
+        try{
+        System.out.println("Ingrese la opcion que desea: ");
+        System.out.println("1.- Preorder");
+        System.out.println("2.- Inorder");
+        System.out.println("3.- Postorder");
+        System.out.println("4.- Anchura");
+
+        int op1 = sc.nextInt();
+        sc.nextLine();
+        return op1;
+        
+    
+        }catch(Exception ex){
+        System.out.println(ex);
+    }
+        return 0;
+    }
+
+    public void insertCompleto() {
+try{
+        System.out.println("Ingrese el nombre del Contacto: ");
+        String nombre = sc.next();
+        System.out.println("Ingrese el numero del Contacto: ");
+        String telefono = sc.next();
+
+        insert(new Contacto(nombre, telefono));
+    }catch(Exception ex){
+        System.out.println(ex);
+    }
+    }
+
+    public void buscarCompleto() {
+        try{
+        System.out.println("Ingrese el nombre del Contacto a buscar: ");
+        String nombre = sc.next();
+        if (buscarContacto(nombre) == null) {
+            System.out.println("El contacto no existe");
+            System.out.println("¿Desea crear un nuevo contacto?");
+            System.out.println("1 = No" + " " + "2 = Si");
+            int op = sc.nextInt();
+            if (op == 2) {
+
+                System.out.println("Ingrese el número del contacto: ");
+                String numero = sc.next();
+
+                insert(new Contacto(nombre, numero));
+            } else {
+                System.out.println("Gracias");
+            }
+        } else {
+            System.out.println(buscarContacto(nombre).getContacto());
+
+        }
+        }catch(Exception ex){
+        System.out.println(ex);
+    }
+    }
+
+    public void eliminarCompleto() {
+        
+        System.out.println("Ingrese el nombre del Contacto a eliminar: ");
+        String nombre = sc.next();
+        System.out.println(buscarContacto(nombre).getContacto());
+        if(buscarContacto(nombre).getContacto()==null){
+            System.out.println("Ese contacto no existe");
+        }else{
+        System.out.println("¿Esta seguro de querer eliminarlo?");
+        System.out.println("1 = No" + " " + "2 = Si");
+        int op = sc.nextInt();
+        if (op == 2) {
+            eliminarContactoR(nombre);
+        } else {
+            System.out.println("El Contacto " + buscarContacto(nombre) + " no ha sido eliminado");
+        }
+        }
+    }
+
+    public void agregarCorreo() {
+        try{
+        System.out.println("Ingrese el nombre del Contacto a agregar correo: ");
+        String nombre = sc.next();
+        Contacto contacto = buscarContacto(nombre).getContacto();
+        System.out.println(contacto.toString());
+        System.out.println("¿Este es el contacto correcto?");
+        System.out.println("1 = No" + " " + "2 = Si");
+        int op = sc.nextInt();
+        if (op == 2) {
+            System.out.println("Ingrese el correo: ");
+            String correo = sc.next();
+            contacto.ingresarCorreo(correo);
+        } else {
+            System.out.println("¿Desea Continuar?");
+            System.out.println("1 = No" + " " + "2 = Si");
+            int op2 = sc.nextInt();
+            if (op2 == 2) {
+                System.out.println("Ingrese el nombre del Contacto a agregar correo: ");
+                String nombre2 = sc.next();
+                Contacto contacto2 = buscarContacto(nombre2).getContacto();
+                System.out.println(contacto2.toString());
+                System.out.println("¿Este es el contacto correcto?");
+                System.out.println("1 = No" + " " + "2 = Si");
+                int op3 = sc.nextInt();
+                if (op3 == 2) {
+                    String correo = sc.next();
+                    contacto.ingresarCorreo(correo);
+                }
+            } else {
+
+            }
+        }
+}catch(Exception ex){
+        System.out.println(ex);
+    }
+    }
+
+    public void agregarRed() {
+        try{
+        System.out.println("Ingrese el nombre del Contacto a agregar red social: ");
+        String nombre = sc.next();
+        Contacto contacto = buscarContacto(nombre).getContacto();
+        System.out.println(contacto.toString());
+        System.out.println("¿Este es el contacto correcto?");
+        System.out.println("1 = No" + " " + "2 = Si");
+        int op = sc.nextInt();
+        if (op == 2) {
+            System.out.println("Ingrese la red social: ");
+            String red = sc.next();
+            System.out.println("Ingrese el link: ");
+            String link = sc.next();
+            contacto.ingresarRedSocial(red, link);
+        } else {
+            System.out.println("¿Desea Continuar?");
+            System.out.println("1 = No" + " " + "2 = Si");
+            int op2 = sc.nextInt();
+            if (op2 == 2) {
+                System.out.println("Ingrese el nombre del Contacto a agregar red social: ");
+                String nombre2 = sc.next();
+                Contacto contacto2 = buscarContacto(nombre2).getContacto();
+                System.out.println(contacto2.toString());
+                System.out.println("¿Este es el contacto correcto?");
+                System.out.println("1 = No" + " " + "2 = Si");
+                int op3 = sc.nextInt();
+                if (op3 == 2) {
+                    System.out.println("Ingrese la red social: ");
+                    String red = sc.next();
+                    System.out.println("Ingrese el link: ");
+                    String link = sc.next();
+                    contacto.ingresarRedSocial(red, link);
+                }
+            } else {
+
+            }
+        }
+}catch(Exception ex){
+        System.out.println(ex);
+    }
+    }
+     public void inorderRecursivo(Nodo nodo) {
+        if (nodo != null) {
+            inorderRecursivo(nodo.getLeft());
+            System.out.print(nodo.getContacto() + " - ");
+            inorderRecursivo(nodo.getRight());
+
+        }
+    }
+     public Nodo getRaiz() {
+        return raiz;
+    }
+     public void postORderRecursivo(Nodo nodo) {
+        if (nodo != null) {
+            inorderRecursivo(nodo.getLeft());
+
+            inorderRecursivo(nodo.getRight());
+            System.out.print(nodo.getContacto() + " - ");
+
+        }
+    }
+      Queue<Nodo> cola = new LinkedList<>();
+
+    public void anchura(Nodo raiz) {
+        if (raiz == null) {
+            return;
+        }
+        cola.clear();
+        cola.add(raiz);
+        while (!cola.isEmpty()) {
+            Nodo nodo = cola.remove();
+            System.out.print(nodo.getContacto() + " ");
+            if (nodo.getLeft()!= null) {
+                cola.add(nodo.getLeft());
+            }
+            if (nodo.getRight()!= null) {
+                cola.add(nodo.getRight());
+            }
+        }
+
+    }
+    public int pesoArbol(Nodo nodo) {
+        if (nodo != null) {
+            return 1 + pesoArbol(nodo.getLeft()) + pesoArbol(nodo.getRight());
+        }
+        return 0;
+    }
+    
 }
