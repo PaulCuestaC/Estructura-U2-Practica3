@@ -16,11 +16,9 @@ Este proyecto implementa un sistema de gestión de contactos telefónicos utiliz
 
 El proyecto está organizado en las siguientes clases:
 
-- `ArbolContactos`: Representa el árbol binario de búsqueda utilizado para almacenar los contactos. Esta clase implementa las operaciones de inserción, búsqueda y eliminación de contactos en el árbol. A su vez, se encuentran los metodos de ordenamiento,
-- junto con los metodos para calcular el peso y altura del arbol binario. Añadiendo, esta clase contiene el menú como método.
+- `ArbolContactos`: Representa el árbol binario de búsqueda utilizado para almacenar los contactos. Esta clase implementa las operaciones de inserción, búsqueda y eliminación de contactos en el árbol. A su vez, se encuentran los metodos de ordenamiento, junto con los metodos para calcular el peso y altura del arbol binario. Añadiendo, esta clase contiene el menú como método.
 
-- `Contacto`: Representa un contacto telefónico y contiene los atributos `nombre` y `telefono`. Además, se ha agregado una variable adicional llamada `redesSociales` que almacena una colección de redes sociales asociadas al contacto, junto con un atributo
-- nuevo llamado Correos de tipo LinkedList con el fin de almacenar los mismos. A su vez, se encuentran los metodos para agregar correos y redes sociales.
+- `Contacto`: Representa un contacto telefónico y contiene los atributos `nombre` y `telefono`. Además, se ha agregado una variable adicional llamada `redesSociales` que almacena una colección de redes sociales asociadas al contacto, junto con un atributo nuevo llamado Correos de tipo LinkedList con el fin de almacenar los mismos. A su vez, se encuentran los metodos para agregar correos y redes sociales.
 
 - `Node`: Clase que representa un nodo del árbol binario de búsqueda. Cada nodo contiene una instancia de la clase `Contacto` y las referencias a los nodos izquierdo y derecho.
 
